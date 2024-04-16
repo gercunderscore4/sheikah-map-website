@@ -1,0 +1,2 @@
+How to disable zoom on phones:
+https://stackoverflow.com/questions/4472891/how-can-i-disable-zoom-on-a-mobile-web-page
