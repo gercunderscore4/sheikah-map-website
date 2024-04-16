@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background: black;
+  overflow: hidden; /* Hide scrollbars */
+}
+#lines {
+  position: absolute;
+  top: 0px; 
+  left: 0px; 
+  height: 100vh;
+  width: 100vw;
+  background-size: auto 100%;
+  background-image: url("lines.png");
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+#top {
+  position: absolute;
+  top: 0px; 
+  left: 0px; 
+  height: 100vh;
+  width: 100vw;
+  background-size: auto 100%;
+  background-size: scale-down;
+  background-image: url("top.png");
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+#bottom {
+  position: absolute;
+  bottom: 0px; 
+  left: 0px; 
+  height: 100vh;
+  width: 100vw;
+  background-size: auto 100%;
+  background-image: url("bottom.png");
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+#top_left {
+  position: absolute;
+  top: 0px; 
+  left: 0px; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: scale-down;
+  object-position: top left; 
+  pointer-events: none;
+}
+#top_right {
+  position: absolute;
+  top: 0px; 
+  right: 0px; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: scale-down;
+  object-position: top right; 
+  pointer-events: none;
+}
+#bottom_left {
+  position: absolute;
+  bottom: 0px; 
+  left: 0px; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: scale-down;
+  object-position: bottom left; 
+  pointer-events: none;
+}
+#bottom_right {
+  position: absolute;
+  bottom: 0px; 
+  right: 0px; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: scale-down;
+  object-position: bottom right; 
+  pointer-events: none;
+}
+#map {
+  position: absolute;
+  top: 0px; 
+  left: 0px; 
+}
+</style>
+</head>
+<body>
+<img id="map" src="map.png"/>
+<div id="lines"/>
+<div id="top"/>
+<div id="bottom"/>
+<div>
+  <img id="top_left"  src="top_left.png"/>
+  <img id="top_right" src="top_right.png"/>
+  <img id="bottom_left"  src="bottom_left.png"/>
+  <img id="bottom_right" src="bottom_right.png"/>
+</div>
+</body>
+</html>
