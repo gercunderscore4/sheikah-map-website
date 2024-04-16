@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<body onload=do_math()>
+
+<p id="demo"></p>
+
+<script>
+var text_element = document.getElementById("demo");
+
+function do_math() {
+    let lat_user = 43.69070847508376;
+    let long_user = -79.57850675002314;
+
+    let xy = get_xy(lat_user, long_user);
+    let percent_x = xy[0];
+    let percent_y = xy[1];
+    text_element.innerHTML = "x: " + percent_x + "<br>y: " + percent_y;
+}
+
+function intersect_of_two_lines(x1, y1, x2, y2, x3, y3, x4, y4) {
+    // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+    let x = ((x1*y2-y1*x2)*(x3-x4) - (x1-x2)*(x3*y4-y3*x4)) / ((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
+    let y = ((x1*y2-y1*x2)*(y3-y4) - (y1-y2)*(x3*y4-y3*x4)) / ((x1-x2)*(y3-y4) - (y1-y2)*(x3-x4));
+    return [x, y]
+}
+
+function one_d_interp_percent(x1, y1, x2, y2, xi, yi) {
+    let d_x_axis = x2 - x1
+    let d_y_axis = y2 - y1
+    let d_axis_len = Math.sqrt((d_x_axis*d_x_axis) + (d_y_axis*d_y_axis));
+
+    let d_x_i = xi - x1
+    let d_y_i = yi - y1
+    let d_i_len = Math.sqrt((d_x_i*d_x_i) + (d_y_i*d_y_i));
+
+    let dot_prod = (d_x_axis * d_x_i) + (d_y_axis * d_y_i);
+    return 100 * dot_prod / (d_axis_len * d_axis_len);
+}
+
+function one_d_interp_coords(x1, y1, x2, y2, xi, yi) {
+    let d_x_axis = x2 - x1
+    let d_y_axis = y2 - y1
+    let d_axis_len = Math.sqrt((d_x_axis*d_x_axis) + (d_y_axis*d_y_axis));
+
+    let d_x_i = xi - x1
+    let d_y_i = yi - y1
+    let d_i_len = Math.sqrt((d_x_i*d_x_i) + (d_y_i*d_y_i));
+
+    let dot_prod = (d_x_axis * d_x_i) + (d_y_axis * d_y_i);
+    let coeff = dot_prod / (d_axis_len * d_i_len);
+
+    return [x1 + coeff * d_x_axis, y1 + coeff * d_y_axis];
+}
+
+function get_xy(lat_i, long_i) {
+    //let lat_user = 43.69070847508376;
+    //let long_user = -79.57850675002314;
+
+    // top left
+    const lat_tl = 43.6924469;
+    const long_tl = -79.5846956;
+    //top right
+    const lat_tr = 43.692776180315406;
+    const long_tr = -79.56748122549102;
+    //bottom left
+    const lat_bl = 43.68707037289217;
+    const long_bl = -79.58494672681769;
+    // bottom right
+    const lat_br = 43.68704956056586;
+    const long_br = -79.56749550278708;
+    
+    let t_percent = one_d_interp_percent(lat_tl, long_tl, lat_tr, long_tr, lat_i, long_i);
+    let b_percent = one_d_interp_percent(lat_bl, long_bl, lat_br, long_br, lat_i, long_i);
+    let l_percent = one_d_interp_percent(lat_tl, long_tl, lat_bl, long_bl, lat_i, long_i);
+    let r_percent = one_d_interp_percent(lat_tr, long_tr, lat_br, long_br, lat_i, long_i);
+
+    return intersect_of_two_lines(t_percent, 0,
+                                    b_percent, 100,
+                                    0, l_percent,
+                                    100, r_percent,
+                                    )
+}
+</script>
+
+</body>
+</html>
