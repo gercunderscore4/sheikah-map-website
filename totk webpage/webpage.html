@@ -1,10 +1,15 @@
 <!DOCTYPE html>
+<!-- Tried https://github.com/anvaka/panzoom but couldn't get it to stay in bounds -->
+<!-- Tried https://www.d3indepth.com/zoom-and-pan/ but I couldn't figure out how to get it to work on the elements I want, also it's a big library designed for more -->
+<!-- trying https://github.com/cotton123236/zoomist seems to be working -->
+<!-- might try https://github.com/bumbu/svg-pan-zoom but it can be a bit tricky -->
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<title>Anime North 2024 Map</title>
 <style>
 body {
-  background: black;
+  background: #2B2A30;
   overflow: hidden; /* Hide scrollbars */
 }
 #border {
@@ -17,16 +22,66 @@ body {
   background-image: url("totk border.png");
   background-repeat: repeat-y;
   pointer-events: none;
+  z-index: 10;
 }
 #map {
+}
+/* Container holding the image and the text */
+.container {
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
+.zoomist-container {
   position: absolute;
   top: 0px; 
   left: 0px; 
+  height: 100vh;
+  width: 100vw;
+}
+
+.zoomist-image {
+  position: absolute;
+  top: 0px; 
+  left: 0px; 
+  height: 100vh;
+  width: 100vw;
+  aspect-ratio: 1;
+}
+
+.zoomist-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zoomist@2/zoomist.css" />
+<script src="https://cdn.jsdelivr.net/npm/zoomist@2/zoomist.umd.js"></script>
 </head>
 <body>
-<img id="map" src="map.png"/>
+<div class="zoomist-container">
+  <div class="zoomist-wrapper">
+    <div class="zoomist-image">
+      <img src="my map borderless totk.png"/>
+    </div>
+  </div>
+</div>
+
 <div id="border"/>
+
+<script>
+const zoomist = new Zoomist('.zoomist-container', {
+  minScale: 0.1,
+  maxScale: 4,
+  initScale: 0.3,
+  bounds: true,
+  // IU off
+  slider: false,
+  zoomer: false
+})
+
+</script>
 </body>
 </html>
