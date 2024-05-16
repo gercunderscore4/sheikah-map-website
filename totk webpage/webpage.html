@@ -2,12 +2,13 @@
 <!-- Tried https://github.com/anvaka/panzoom but couldn't get it to stay in bounds -->
 <!-- Tried https://www.d3indepth.com/zoom-and-pan/ but I couldn't figure out how to get it to work on the elements I want, also it's a big library designed for more -->
 <!-- trying https://github.com/cotton123236/zoomist seems to be working -->
-<!-- might try https://github.com/bumbu/svg-pan-zoom but it can be a bit tricky -->
+<!-- might try https://github.com/bumbu/svg-pan-zoom but it can be a bit finicky -->
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 <title>Anime North 2024 Map</title>
 <style>
+/* background and border */
 body {
   background: #2B2A30;
   overflow: hidden; /* Hide scrollbars */
@@ -24,23 +25,29 @@ body {
   pointer-events: none;
   z-index: 10;
 }
-#map {
-}
-/* Container holding the image and the text */
+
+/* planning to use this for user tracking */
 .container {
   position: relative;
   text-align: center;
-  color: black;
+  color: #2B2A30;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* needed for zoomist */
 .zoomist-container {
   position: absolute;
   top: 0px; 
   left: 0px; 
   height: 100vh;
   width: 100vw;
+  background: #2B2A30;
 }
-
 .zoomist-image {
   position: absolute;
   top: 0px; 
@@ -48,23 +55,25 @@ body {
   height: 100vh;
   width: 100vw;
   aspect-ratio: 1;
+  background: #2B2A30;
 }
-
 .zoomist-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  background: #2B2A30;
 }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zoomist@2/zoomist.css" />
 <script src="https://cdn.jsdelivr.net/npm/zoomist@2/zoomist.umd.js"></script>
 </head>
 <body>
+
 <div class="zoomist-container">
   <div class="zoomist-wrapper">
     <div class="zoomist-image">
-      <img src="my map borderless totk.png"/>
+      <img src="my map borderless totk.jpg"/>
     </div>
   </div>
 </div>
@@ -72,16 +81,17 @@ body {
 <div id="border"/>
 
 <script>
+window.onload = () => {new Audio("open.wav").play()};
 const zoomist = new Zoomist('.zoomist-container', {
   minScale: 0.1,
-  maxScale: 4,
+  maxScale: 10,
   initScale: 0.3,
   bounds: true,
   // IU off
   slider: false,
   zoomer: false
 })
-
 </script>
+
 </body>
 </html>
