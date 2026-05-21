@@ -3,7 +3,6 @@
 <!-- Tried https://www.d3indepth.com/zoom-and-pan/ but I couldn't figure out how to get it to work on the elements I want, also it's a big library designed for more -->
 <!-- trying https://github.com/cotton123236/zoomist seems to be working -->
 <!-- might try https://github.com/bumbu/svg-pan-zoom but it can be a bit finicky -->
-
 <!-- I'm using the Hylian Serif from https://artsyomni.com/hyliaserif -->
 <html>
 <head>
@@ -54,6 +53,11 @@ body {
             <img src="./menu/stamp_button.png" alt="Stamp Rally!" class="btn">
         </a>
     </div> -->
+    <div class="stamp_b">
+        <a href="javascript:randomCard();">
+            <img src="./menu/bingo_button.jpg" alt="Bingo!" class="btn">
+        </a>
+    </div>
     <div class="map_b">
         <a href="./totk webpage/webpage.html">
             <img src="./menu/map_button.png" alt="A Link to the Map" class="btn">
@@ -65,5 +69,14 @@ body {
         </a>
     </div>
 </div>
+<script>
+function randomCard() {
+    var randIdx = parseInt(Math.random() * 100)
+    var idxStr = String(randIdx);
+    idxStr = idxStr.padStart(3, "0");
+    var link = './bingo/bingo_card_' + idxStr + '.jpg';
+    location.href = link
+}
+</script>
 </body>
 </html>
