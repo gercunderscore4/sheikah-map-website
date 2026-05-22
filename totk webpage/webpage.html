@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-<title>Anime North 2024 Map</title>
+<title>Anime North Map</title>
 <style>
 /* background and border */
 body {
@@ -84,8 +84,8 @@ body {
 window.onload = () => {new Audio("open.wav").play()};
 const zoomist = new Zoomist('.zoomist-container', {
   minScale: 0.1,
-  maxScale: 10,
-  initScale: 0.3,
+  maxScale: 100,
+  initScale: 1,
   bounds: true,
   // IU off
   slider: false,
